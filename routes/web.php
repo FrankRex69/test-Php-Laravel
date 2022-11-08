@@ -14,12 +14,8 @@ use Elasticsearch\ClientBuilder;
 |
 */
 
-Route::get('/miao22', function () {
-    return ('miao');
-});
-
-Route::get('/ciao1', function () {
-    return ('ciao222');
+Route::get('/ciao', function () {
+    return ('ciao_response');
 });
 
 Route::get('/', function () {
@@ -28,7 +24,7 @@ Route::get('/', function () {
 
 // --- query per db in mysql
 Route::get('/insert', function () { 
-    DB::insert('insert into table_test(field_1,field_2) values(?,?)',['valore1','valore2']); 
+    DB::insert('insert into table_test(field_1,field_2) values(?,?)',['asd122','fgh222']); 
 });
 
 // -- ElasticSearch
