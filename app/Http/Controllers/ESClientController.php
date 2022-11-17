@@ -9,12 +9,9 @@ use Elasticsearch\ClientBuilder;
 class ESClientController extends Controller
 {
     // Elastichsearch-php Client
-    protected $elasticsearch;
+    protected $elasticsearch;    
 
-    // Elastica Client
-    protected $elastica;
-
-    public function elasticsearchTest1() {
+    public function elasticsearchTest1($par1, $par2) {
 
         // HTTP Basic Authentication
         $hosts = ['http://elasticsearch-container:9200'];       
@@ -24,10 +21,10 @@ class ESClientController extends Controller
         $params = array();    
         $params['index'] = 'universityzz';
         $params['type']  = '_doc';
-        $params['id']  = 21;
+        //$params['id']  = 22;
         $params['body']  = array(	
-            'name' => 'qsqqwrwrzz', 											
-            'age' => 'trttyjjytjyzz'
+            'name' => $par1, 											
+            'age' => $par2
         );    
         
         //using Index() function to inject the data
@@ -36,23 +33,27 @@ class ESClientController extends Controller
         
     }
 
-    //Elastichsearch-php Client
-    public function elasticsearchTest2() {
-        //view our Elastichsearch-php client object
-        dump($this->elasticsearch);
+    public function elasticsearchQueries() {
 
-        echo "\n\nRetrieve a document:\n";
+        // HTTP Basic Authentication
+        $hosts = ['http://elasticsearch-container:9200'];       
+        $client = ClientBuilder::create()->setHosts($hosts)->build();
+
         $params = [
-            'index' => 'pets',
-            'type' => 'dog',
-            'id' => '1'
-        ];
-        $response = $this->elasticsearch->get($params);
-        dump($response);
-    }
+            'index' => 'elettric',
+            'type' => '_doc',
+            'body' => [
+                'query' => [
+                    'match' => [
+                        'City' => 'Sammamish'
+                    ]
+                ]
+            ]
+        ];        
 
-    public function elasticsearchTest() {
-        echo "asdfghjkl";
+        $result = $client->search($params);
+        dump($result);
+
     }
 
 }
